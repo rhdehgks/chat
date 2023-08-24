@@ -7,7 +7,7 @@ async def server(ws, path):
         print(f"Msg from client: {msg}")
         await ws.send(f"{msg}")
 
-start_server = websockets.serve(server, "localhost", 5000)
+start_server = websockets.serve(server, "13.125.159.144", 5000)
 print("Server started")
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
