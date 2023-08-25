@@ -18,7 +18,9 @@ async def server(ws, path):
             msg = msg.decode("utf-8")
             print(f"Msg from client: {msg}")
             for client in list(connected_clients):
-                if client is not ws:
+                if client is ws:
+                    await client.send(f"[color=green]{names[ws]}[/color]: {msg}")
+                else:
                     await client.send(f"{names[ws]}: {msg}")
     finally:
         words.add(names[ws])
@@ -27,5 +29,6 @@ async def server(ws, path):
 
 start_server = websockets.serve(server, "0.0.0.0", 5000)
 print("Server started")
+print(words)
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
